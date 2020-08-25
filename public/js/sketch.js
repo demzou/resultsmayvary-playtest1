@@ -6,8 +6,8 @@ let cnvH;
 let cnvX;
 let cnvY;
 let socket;
-//const serverURL = 'URL';
-const serverURL = 'localhost:8080';
+const serverURL = 'https://resultsmayvary-playtest1.herokuapp.com/';
+//const serverURL = 'localhost:8080';
 
 let mode = 0;
 let question;
