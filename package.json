@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "OpenTok Broadcast Sample Application",
   "engines": {
-    "node": "6.9.2"
+    "node": "8.x"
   },
   "main": "server.js",
   "dependencies": {
