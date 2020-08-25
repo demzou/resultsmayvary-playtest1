@@ -1,0 +1,46 @@
+{
+  "name": "broadcast-sample-app",
+  "version": "1.0.0",
+  "description": "OpenTok Broadcast Sample Application",
+  "engines": {
+    "node": "6.9.2"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "body-parser": "^1.15.1",
+    "ejs": "^2.4.2",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^7.2.1",
+    "opentok": "^2.3.2",
+    "ramda": "^0.21.0",
+    "request": "^2.72.0",
+    "socket.io": "^2.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opentok/broadcast-sample-app.git"
+  },
+  "keywords": [
+    "opentok",
+    "broadcast",
+    "webrtc"
+  ],
+  "author": "adrice727@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opentok/broadcast-sample-app/issues"
+  },
+  "homepage": "https://github.com/opentok/broadcast-sample-app#readme",
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0"
+  }
+}
