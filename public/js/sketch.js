@@ -6,12 +6,12 @@ let cnvH;
 let cnvX;
 let cnvY;
 let socket;
-const serverURL = 'https://resultsmayvary-playtest1.herokuapp.com/';
-//const serverURL = 'localhost:8080';
+//const serverURL = 'https://resultsmayvary-playtest1.herokuapp.com/';
+const serverURL = 'localhost:8080';
 
 let mode = 0;
-let question;
-let options = [];
+// let question;
+// let options = [];
 
 // Mode 1 --> Intro
 let question1 = "Pick the top 3 emotions you've been feeling during the lockdown";
@@ -31,7 +31,7 @@ let options7 = ['I work for a supportive company', 'I have enough wealth/savings
 
 // Mode 8 --> Input WORK Stressful
 let question8 = "Give an example of something you have written in an email or an online chat";
-let input;
+let input8;
 
 // Mode 9 --> Vote TIME
 let question9 = 'How busy have you been?';
@@ -44,6 +44,47 @@ let options12 = ['Exercising', 'Hobbies/Projects', 'Cooking', 'Work/Studies', 'K
 // Mode 14 --> Statements MORE TIME
 let question14 = "What did you do with this extra time? Click on the statement if true";
 let statement14 = ['Exercise / Yoga', 'Cook / Bake', 'Watch TV / Netflix or play games', 'Hobbies / Craft / Personal projects', 'Grow plants', 'Take more time for myself', 'Learn new skills'];
+
+// Mode 15 --> Vote HUMAN CONTACT
+let question15 = 'How did being isolated from others make you feel?';
+let options15 = ['Lonely or anxious', 'Comfortable on my own or the people I live with'];
+
+// Mode 18 --> Statements LONELY
+let question18 = "Click on the statement if true";
+let statement18 = [" I am usually a very social person", "I miss serendipity",  "I miss physical contact", "I miss talking to people", "I am afraid to be forgotten", "I haven't had enough people around to interact"];
+
+// Mode 21 --> Vote SOCIAL CIRCLES
+let question21 = "How have your social circles been impacted?";
+let options21 = ["Stayed steady or increased", "Became smaller"];
+
+// Mode 24 --> List of statements STEADY
+let question24 = 'Select all the statements that apply to you';
+let options24 = ["Circles were fairly small to start with", "I cultivate few but strong relationships", "People have made an effort to stay in touch", "Some people reach out more than before", "I organised activities to maintain my circles", "I have felt the need to reconnect with people"];
+
+// Mode 26 --> Statements SMALLER
+let question26 = "Click on the statement if true";
+let statement26 = ["I have had more meaningful interactions with the peole I interacted with", "This made me realise who my real friends are",  "People have been closing on themselves", "I haven't interacted with some people at all", "This made me worried about the quality of my relationships", "My circles are related to activities that stopped"];
+
+// Mode 27 --> Input SOCIAL CIRCLES Family
+let question27 = "Give an example of something you would like to send to a family member or a special person";
+let input27;
+
+// Mode 28 --> Vote HEALTHY HABITS
+let question28 = "Looking at your health habits (eating, sleeping, exercising), how have they evolved?";
+let options28 = ["Same or healthier", "Getting worse"];
+
+// Mode 31 --> Statements HEALTHIER
+let question31 = "Click on the statement if true";
+let statement31 = ["I have have used this time to put new healthy habits in place", "I started a new physical activity", "I have been eating food carefully", "I made sure I was exercising regularly", "I have been meditating"];
+
+// Mode 33 --> Statements WORSE
+let question33 = "Click on the statement if true";
+let statement33 = ["I haven't been able to maintain my usual level of physical activity", "It got difficult to stay motivated", "I have been cooking too much", "I don't have the space or the time to relax or exercise", "My sleep pattern has been affected"];
+
+// Mode 36 --> Input FUTURE
+let question36 = "Considering what you've learned, enjoyed or missed, if you could make a promise to yourself when approaching the 'new normal', what would it be?";
+let input36;
+
 let statementCount = 0;
 
 let optionsSelected = [false, false, false, false, false, false, false, false];
@@ -88,22 +129,44 @@ function setup() {
     choiceMade = false;
 
     //Input
-    input = createInput();
-    input.position(cnvX+20, cnvH/2);
-    input.size(cnvW-40, cnvH/4);
-    input.value(' ');
-    input.style('background-color', '#111111');
-    input.style('font-family', 'futura');
-    input.style('font-size', '16px');
-    input.style('color', 'white');
-    input.style('border-color', 'white');
-    input.style('display', 'none');
+    input8 = createInput();
+    input8.position(cnvX+20, cnvH/2);
+    input8.size(cnvW-40, cnvH/4);
+    input8.value(' ');
+    input8.style('background-color', '#111111');
+    input8.style('font-family', 'futura');
+    input8.style('font-size', '16px');
+    input8.style('color', 'white');
+    input8.style('border-color', 'white');
+    input8.style('display', 'none');
+
+    input27 = createInput();
+    input27.position(cnvX+20, cnvH/2);
+    input27.size(cnvW-40, cnvH/4);
+    input27.value(' ');
+    input27.style('background-color', '#111111');
+    input27.style('font-family', 'futura');
+    input27.style('font-size', '16px');
+    input27.style('color', 'white');
+    input27.style('border-color', 'white');
+    input27.style('display', 'none');
+
+    input36 = createInput();
+    input36.position(cnvX+20, cnvH/2);
+    input36.size(cnvW-40, cnvH/4);
+    input36.value(' ');
+    input36.style('background-color', '#111111');
+    input36.style('font-family', 'futura');
+    input36.style('font-size', '16px');
+    input36.style('color', 'white');
+    input36.style('border-color', 'white');
+    input36.style('display', 'none');
 
     //Socket.io
     socket = io.connect(serverURL);
 
     socket.on('mode', function(data) {
-      input.style('display', 'none');
+      input8.style('display', 'none');
       console.log("Mode: " + data);
       mode = data;
 
@@ -112,83 +175,42 @@ function setup() {
       keepPressing = false;
       statementClicked = false;
       statementCount = 0;
-
-      if(mode == 1) {
-          question = question1;
-          options = options1;
-      }
-      if(mode == 2) {
-        question = question2;
-        options = options2;
-      }
-      if(mode == 5) {
-        question = question5;
-        options = options5;
-      }
-      if(mode == 7) {
-        question = question7;
-        options = options7;
-      }
-
-      if(mode==8) question = question8;
-
-      if(mode == 9) {
-        question = question9;
-        options = options9;
-      }
-
-      if(mode == 12) {
-        question = question12;
-        options = options12;
-      }
-
-      if(mode == 14) {
-        question = question14;
-        statement = statement14;
-      }
     });
 
     socket.on('nextStatement', function(data) {
         statementClicked = false;
         statementCount++;
-        if(statementCount >= statement.length) {
-            statementCount = 0;
-        }
+        // if(statementCount >= statement.length-1) {
+        //     statementCount = 0;
+        // }
     });
-
-    // socket.on('question', function(data) {
-    //     console.log("Question: " + data);
-    //     question = data;
-    // });
-
-    // socket.on('optionsList', function(data) {
-    //     console.log("Options: " + data);
-    //     options = data;
-    // });
 
 
 }
 
 //--------------------------------------------------------------------
 function draw() {
-    console.log(resultSent);
 
     background(0);
 
-    if (mode==1) drawList(question, options, 3, 3);
-    if (mode==2) drawChoice(question, options);
-    if (mode==5) drawList(question, options, 1, options.length+1);
-    if (mode==7) drawList(question, options, 1, options.length+1);
-    if (mode==8) drawInput(question, input);
-    if (mode==9) drawChoice(question, options);
-    if (mode==12) drawList(question, options, 1, options.length+1);
-    if (mode==14) buttonStatement(question, statement);
-
-    //drawChoice(question, options);
-    //drawList(question, options, 1, options.length+1);
-    //drawList(question, options, 3, 3);
-    //drawInput(question, input);
-    //buttonStatement(question, statement);
+    if (mode==1) drawList(question1, options1, 3, 3);
+    if (mode==2) drawChoice(question2, options2);
+    if (mode==5) drawList(question5, options5, 1, options5.length+1);
+    if (mode==7) drawList(question7, options7, 1, options7.length+1);
+    if (mode==8) drawInput(question8, input8);
+    if (mode==9) drawChoice(question9, options9);
+    if (mode==12) drawList(question12, options12, 1, options12.length+1);
+    if (mode==14) buttonStatement(question14, statement14);
+    if (mode==15) drawChoice(question15, options15);
+    if (mode==18) buttonStatement(question18, statement18);
+    if (mode==21) drawChoice(question21, options21);
+    if (mode==24) drawList(question24, options24, 1, options24.length+1);
+    if (mode==26) buttonStatement(question26, statement26);
+    if (mode==27) drawInput(question27, input27);
+    if (mode==28) drawChoice(question28, options28);
+    if (mode==31) buttonStatement(question31, statement31);
+    if (mode==33) buttonStatement(question33, statement33);
+    if (mode==36) drawInput(question36, input36);
 
 }
 
@@ -224,14 +246,14 @@ function drawChoice(_question, _options) {
     text(_question, 20, height/4, width-20, height/4);
 
     //Buttons
-    buttonSquare(0);
-    buttonSquare(1);
-    if(!resultSent) submitButton('selection');
+    buttonSquare(_options, 0);
+    buttonSquare(_options, 1);
+    if(!resultSent) submitButton('selection', _options);
 
 }
 
 //--------------------------------------------------------------------
-function buttonSquare(_optionNum) {
+function buttonSquare(_options, _optionNum) {
 
     let buttonWidth = width/2-20;
     let buttonHeight = height/4;
@@ -283,7 +305,7 @@ function buttonSquare(_optionNum) {
     textFont(futuraBook);
     textSize(24);
     fill(optionsCol[_optionNum]);
-    text(options[_optionNum], startX, 2.25*buttonHeight, buttonWidth, buttonHeight/2);
+    text(_options[_optionNum], startX, 2.25*buttonHeight, buttonWidth, buttonHeight/2);
     pop();
 }
 
@@ -326,14 +348,14 @@ function drawList(_question, _options, _min, _max) {
 
     //Buttons
     for (let i=0; i<_options.length; i++) {
-        buttonList(i);
+        buttonList(_options, i);
     }
-    if(!resultSent) submitButton('selection');
+    if(!resultSent) submitButton('selection', _options);
 
 }
 
 //--------------------------------------------------------------------
-function buttonList(_optionNum) {
+function buttonList(_options, _optionNum) {
 
     let buttonWidth = width-40;
     let buttonHeight = height/16;
@@ -387,7 +409,7 @@ function buttonList(_optionNum) {
     textFont(futuraBook);
     textSize(18);
     fill(optionsCol[_optionNum]);
-    text(options[_optionNum], startX, startY+buttonHeight/4, buttonWidth, buttonHeight/2);
+    text(_options[_optionNum], startX, startY+buttonHeight/4, buttonWidth, buttonHeight/2);
     pop();
 }
 
@@ -415,17 +437,17 @@ function drawInput(_question, _input) {
     //Input
     _input.style('display', 'block');
 
-    if(!resultSent) submitButton('input');
+    if(!resultSent) submitButton('input', _input);
     if(resultSent) {
-        input.style('background-color', '#111111');
-        input.style('color', 'grey');
-        input.style('border', 'none');
+        _input.style('background-color', '#111111');
+        _input.style('color', 'grey');
+        _input.style('border', 'none');
     } 
 
 }
 
 //--------------------------------------------------------------------
-function submitButton(_type) {
+function submitButton(_type, _optionsOrInput) {
 
     let buttonWidth = width-40;
     let buttonHeight = height/14;
@@ -453,17 +475,25 @@ function submitButton(_type) {
 
                             if(mode ==1) socket.emit('submit1', choice);
                             if(mode ==2) socket.emit('submit2', choice);
+                            if(mode ==5) socket.emit('submit5', choice);
+                            if(mode ==7) socket.emit('submit7', choice);
                             if(mode ==9) socket.emit('submit9', choice);
                             if(mode ==12) socket.emit('submit12', choice);
+                            if(mode ==15) socket.emit('submit15', choice);
+                            if(mode ==21) socket.emit('submit21', choice);
+                            if(mode ==24) socket.emit('submit24', choice);
+                            if(mode ==28) socket.emit('submit28', choice);
                             
                             resultSent = true;
                         }
 
                         if(_type === 'input') {
                             choice.length = 0;
-                            choice = input.value();
+                            choice = _optionsOrInput.value();
                             console.log(choice);
-                            socket.emit('input', choice);
+                            if(mode ==8) socket.emit('input8', choice);
+                            if(mode ==27) socket.emit('input27', choice);
+                            if(mode ==36) socket.emit('input36', choice);
                             resultSent = true;
                             choice = [];
                         }
@@ -518,18 +548,20 @@ function buttonStatement(_question, _statement) {
     let circleBgCol;
 
     //Check hover and clicks
-    if(mouseX > centreX-buttonSize/2 && mouseX < centreX+buttonSize/2) {
-        if(mouseY > centreY-buttonSize/2 && mouseY< centreY+buttonSize/2) {
-            if(mouseIsPressed && keepPressing == false) {
-                statementClicked = true;
-                socket.emit('statementClicked', 1);
-                keepPressing = true;
-            } else {
-                isHovered = true;
-            }
-        } 
-    } else {
-        isHovered = false;
+    if(!statementClicked) {
+        if(mouseX > centreX-buttonSize/2 && mouseX < centreX+buttonSize/2) {
+            if(mouseY > centreY-buttonSize/2 && mouseY< centreY+buttonSize/2) {
+                if(mouseIsPressed && keepPressing == false) {
+                    statementClicked = true;
+                    socket.emit('statementClicked', 1);
+                    keepPressing = true;
+                } else {
+                    isHovered = true;
+                }
+            } 
+        } else {
+            isHovered = false;
+        }
     }
 
     //Change colours accordingly

@@ -122,59 +122,88 @@ io.sockets.on('connection',
       }
     );
 
-    socket.on('question',
-    function(data) {
-        //do something when data is received
-        console.log("question :" + data);
-        socket.broadcast.emit('question', data);
-      }
-    );
-
-    // socket.on('optionsList',
-    // function(data) {
-    //     //do something when data is received
-    //     console.log("options :" + data);
-    //     socket.broadcast.emit('optionsList', data);
-    //   }
-    // );
     
   socket.on('submit1',
   function(data) {
-      //do something when data is received
-      console.log("submit1: " + data);
       socket.broadcast.emit('submit1', data);
     }
   );
 
   socket.on('submit2',
   function(data) {
-      //do something when data is received
-      console.log("submit2: " + data);
       socket.broadcast.emit('submit2', data);
+    }
+  );
+
+  socket.on('submit5',
+  function(data) {
+      socket.broadcast.emit('submit5', data);
+    }
+  );
+
+  socket.on('submit7',
+  function(data) {
+      socket.broadcast.emit('submit7', data);
     }
   );
 
   socket.on('submit9',
   function(data) {
-      //do something when data is received
-      console.log("submit9: " + data);
       socket.broadcast.emit('submit9', data);
     }
   );
 
   socket.on('submit12',
   function(data) {
-      //do something when data is received
-      console.log("submit12: " + data);
       socket.broadcast.emit('submit12', data);
     }
   );
 
-  socket.on('input',
+  socket.on('submit15',
   function(data) {
-      //do something when data is received
-      console.log("input: " + data);
-      socket.broadcast.emit('input', data);
+      socket.broadcast.emit('submit15', data);
+    }
+  );
+
+  socket.on('submit21',
+  function(data) {
+      socket.broadcast.emit('submit21', data);
+    }
+  );
+
+  socket.on('submit24',
+  function(data) {
+      socket.broadcast.emit('submit24', data);
+    }
+  );
+
+  socket.on('submit27',
+  function(data) {
+      socket.broadcast.emit('submit27', data);
+    }
+  );
+
+  socket.on('submit28',
+  function(data) {
+      socket.broadcast.emit('submit28', data);
+    }
+  );
+
+  socket.on('input8',
+  function(data) {
+      socket.broadcast.emit('input8', data);
+    }
+  );
+
+  socket.on('input27',
+  function(data) {
+      socket.broadcast.emit('input27', data);
+    }
+  );
+
+  socket.on('input36',
+  function(data) {
+      socket.broadcast.emit('input36', data);
     }
   );
 
@@ -189,14 +218,6 @@ io.sockets.on('connection',
       socket.broadcast.emit('statementClicked', data);
     }
   );
-
-  // socket.on('example',
-  // function(data) {
-  //     //do something when data is received
-  //   socket.broadcast.emit('example', data);
-  //   }
-  // );
-
     
     // Specify a callback function to run when the client disconnects
     socket.on('disconnect',

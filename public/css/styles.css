@@ -11,7 +11,9 @@ body {
 }
 
 .sketch {
-    flex-grow: 1.66;
+    /* width: 400px; */
+    /* flex-grow: 400px; */
+    flex-grow: 1;
     transition: all 0.2s ease;
 }
 
