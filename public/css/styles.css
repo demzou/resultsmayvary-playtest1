@@ -11,9 +11,9 @@ body {
 }
 
 .sketch {
-    /* width: 400px; */
+    width: 440px;
     /* flex-grow: 400px; */
-    flex-grow: 1;
+    /* flex-grow: 1; */
     transition: all 0.2s ease;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 .main-container {
-    flex-grow: 2;
+    flex-grow: 1;
     height: 100vh;
     /* height: 100%; */
     /* width: 90vw;

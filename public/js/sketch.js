@@ -6,8 +6,8 @@ let cnvH;
 let cnvX;
 let cnvY;
 let socket;
-//const serverURL = 'https://resultsmayvary-playtest1.herokuapp.com/';
-const serverURL = 'localhost:8080';
+const serverURL = 'https://resultsmayvary-playtest1.herokuapp.com/';
+//const serverURL = 'localhost:8080';
 
 let mode = 0;
 // let question;
@@ -27,7 +27,7 @@ let options5 = ['I have been furloughed', 'The business/industry took a hit', "I
 
 // Mode 7 --> List statements SAFE
 let question7 = 'Select all the statements that apply to you';
-let options7 = ['I work for a supportive company', 'I have enough wealth/savings', 'I have maintaind my job', 'My visa situation is secured', "I've felt lucky", 'New opportunities appeared', 'I feel safe but trapped in my job'];
+let options7 = ['I work for a supportive company', 'I have enough wealth/savings', 'I have maintained my job', 'My visa situation is secured', "I've felt lucky", 'New opportunities appeared', 'I feel safe but trapped in my job'];
 
 // Mode 8 --> Input WORK Stressful
 let question8 = "Give an example of something you have written in an email or an online chat";
@@ -63,7 +63,7 @@ let options24 = ["Circles were fairly small to start with", "I cultivate few but
 
 // Mode 26 --> Statements SMALLER
 let question26 = "Click on the statement if true";
-let statement26 = ["I have had more meaningful interactions with the peole I interacted with", "This made me realise who my real friends are",  "People have been closing on themselves", "I haven't interacted with some people at all", "This made me worried about the quality of my relationships", "My circles are related to activities that stopped"];
+let statement26 = ["I have had more meaningful interactions with the people I interacted with", "This made me realise who my real friends are",  "People have been closing on themselves", "I haven't interacted with some people at all", "This made me worried about the quality of my relationships", "My circles are related to activities that stopped"];
 
 // Mode 27 --> Input SOCIAL CIRCLES Family
 let question27 = "Give an example of something you would like to send to a family member or a special person";
@@ -166,7 +166,11 @@ function setup() {
     socket = io.connect(serverURL);
 
     socket.on('mode', function(data) {
+
       input8.style('display', 'none');
+      input27.style('display', 'none');
+      input36.style('display', 'none');
+
       console.log("Mode: " + data);
       mode = data;
 
@@ -598,7 +602,7 @@ function buttonStatement(_question, _statement) {
     textSize(20);
     fill(statementCol);
     noStroke();
-    text(_statement[statementCount], centreX-buttonSize/2, centreY-buttonSize/2, buttonSize, buttonSize);
+    text(_statement[statementCount], centreX-buttonSize/2+10, centreY-buttonSize/2, buttonSize-20, buttonSize);
     pop();
 
 }
